@@ -1,5 +1,6 @@
 import Mascot from "./Mascot";
 import StatusBar from "./StatusBar";
+import Button from "./Button";
 
 const MOOD_ROWS = [
   ["焦慮", "疲憊", "平靜"],
@@ -55,25 +56,26 @@ export default function GreetingScreen({
         ))}
       </div>
 
-      <button
-        type="button"
+      <Button
+        variant="text"
         onClick={onTypeInstead}
-        className="absolute left-1/2 top-[554px] -translate-x-1/2 text-[12px] text-[#918cab] underline"
+        className="absolute left-1/2 top-[554px] -translate-x-1/2"
       >
         或,直接打字跟我說
-      </button>
+      </Button>
 
       <p className="absolute left-1/2 top-[640px] w-[327px] -translate-x-1/2 text-center text-[11px] text-[#918cab]">
         說完我幫你收進心事盒,只有你和小雲怪看得到
       </p>
 
-      <button
-        type="button"
+      <Button
+        variant="secondary"
+        size="sm"
         onClick={onSkip}
-        className="absolute left-1/2 top-[694px] -translate-x-1/2 rounded-full border border-[#b7a6de] px-[14px] py-[6px] text-[12px] text-[#b7a6de]"
+        className="absolute left-1/2 top-[694px] -translate-x-1/2"
       >
         先逛逛也可以
-      </button>
+      </Button>
     </div>
   );
 }

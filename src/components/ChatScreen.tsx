@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import Mascot from "./Mascot";
 import StatusBar from "./StatusBar";
+import Button from "./Button";
 import sleepIcon from "../assets/icon-sleep.svg";
 import micIcon from "../assets/icon-mic.svg";
 import type { ChatMessage } from "../types";
@@ -46,14 +47,15 @@ export default function ChatScreen({
     <div className="relative flex size-full flex-col">
       <StatusBar time="14:10" />
 
-      <button
-        type="button"
+      <Button
+        variant="secondary"
+        size="sm"
+        icon={<img alt="" src={sleepIcon} className="size-3" />}
         onClick={onFinish}
-        className="absolute left-1/2 top-[53px] z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-[#b7a6de] px-[14px] py-[6px] text-[12px] text-[#b7a6de]"
+        className="absolute left-1/2 top-[53px] z-10 -translate-x-1/2"
       >
-        <img alt="" src={sleepIcon} className="size-3" />
         完成對話進入首頁
-      </button>
+      </Button>
 
       <div className="flex flex-col items-center gap-3 px-6 pb-2 pt-[100px]">
         <Mascot />
@@ -107,13 +109,9 @@ export default function ChatScreen({
         </div>
 
         {showNudge && (
-          <button
-            type="button"
-            onClick={onFinish}
-            className="flex h-11 w-full items-center justify-center rounded-xl bg-[#6f5aa8] text-[13px] text-[#f6f3fa]"
-          >
+          <Button variant="primary" size="lg" fullWidth onClick={onFinish}>
             說完了,幫我收著
-          </button>
+          </Button>
         )}
       </div>
     </div>
