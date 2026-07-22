@@ -20,7 +20,7 @@ export default function PhoneFrame({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#1c1a24] p-6">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#444444] p-6">
       <div style={{ width: PHONE_WIDTH * scale, height: PHONE_HEIGHT * scale }}>
         <div
           className="relative overflow-hidden rounded-[36px] bg-[#f7f2e7] shadow-2xl"
