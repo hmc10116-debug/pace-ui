@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  font-family: "Noto Sans TC", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #1c1a24;
+}
