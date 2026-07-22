@@ -82,12 +82,6 @@ export default function ChatScreen({
         <div ref={listEndRef} />
       </div>
 
-      {showNudge && (
-        <p className="px-6 pb-2 text-center text-[12px] text-[#918cab]">
-          想換個方式陪你嗎?點上面的「想被安慰」就能切換 ↑
-        </p>
-      )}
-
       <div className="flex flex-col gap-2 p-[10px] pb-4">
         <div className="flex h-[46px] items-center justify-between rounded-[14px] border-[1.5px] border-[rgba(111,90,168,0.5)] bg-[#262838] pl-4 pr-2">
           <input
