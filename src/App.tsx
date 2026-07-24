@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { flushSync } from "react-dom";
 import PhoneFrame from "./components/PhoneFrame";
 import GreetingScreen from "./components/GreetingScreen";
 import ChatScreen from "./components/ChatScreen";
@@ -41,20 +40,16 @@ export default function App() {
   }
 
   function handlePickMood(mood: string) {
-    flushSync(() => {
-      setScreen("chat");
-      setMessages([makeMessage("user", mood)]);
-    });
     chatInputRef.current?.focus();
+    setScreen("chat");
+    setMessages([makeMessage("user", mood)]);
     triggerBotReply(MOOD_REPLIES[mood] ?? DEFAULT_REPLY);
   }
 
   function handleTypeInstead() {
-    flushSync(() => {
-      setScreen("chat");
-      setMessages([]);
-    });
     chatInputRef.current?.focus();
+    setScreen("chat");
+    setMessages([]);
   }
 
   function handleSend() {
@@ -79,10 +74,10 @@ export default function App() {
 
   return (
     <PhoneFrame>
-      {screen === "greeting" && (
+      <div className={`absolute inset-0 ${screen === "greeting" ? "" : "pointer-events-none opacity-0"}`}>
         <GreetingScreen onPickMood={handlePickMood} onTypeInstead={handleTypeInstead} onSkip={handleTypeInstead} />
-      )}
-      {screen === "chat" && (
+      </div>
+      <div className={`absolute inset-0 ${screen === "chat" ? "" : "pointer-events-none opacity-0"}`}>
         <ChatScreen
           messages={messages}
           isTyping={isTyping}
@@ -92,7 +87,7 @@ export default function App() {
           onFinish={handleFinish}
           inputRef={chatInputRef}
         />
-      )}
+      </div>
       {showDone && <DoneOverlay />}
     </PhoneFrame>
   );
