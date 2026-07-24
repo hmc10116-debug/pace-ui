@@ -69,7 +69,7 @@ export default function ChatScreen({
         <p className="text-center text-[12px] text-text-secondary">我在聽,想說什麼都可以</p>
       </div>
 
-      <div className="flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2">
+      <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2">
         {messages.map((m) => (
           <div key={m.id} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
             <p
