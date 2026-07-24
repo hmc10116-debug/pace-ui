@@ -28,16 +28,13 @@ export default function PhoneFrame({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const padding = 48;
-  const scale = Math.min(
-    1,
-    (viewportRect.width - padding) / PHONE_WIDTH,
-    (viewportRect.height - padding) / PHONE_HEIGHT,
-  );
+  // Fill the real viewport edge-to-edge — scale the fixed-coordinate
+  // 375x812 design canvas by width only, no shrink-to-fit letterboxing.
+  const scale = viewportRect.width / PHONE_WIDTH;
 
   return (
     <div
-      className="flex items-center justify-center bg-[#444444] p-6"
+      className="h-dvh w-full overflow-hidden bg-bg-base"
       style={{
         position: "fixed",
         top: viewportRect.offsetTop,
@@ -46,18 +43,16 @@ export default function PhoneFrame({ children }: { children: ReactNode }) {
         height: viewportRect.height,
       }}
     >
-      <div style={{ width: PHONE_WIDTH * scale, height: PHONE_HEIGHT * scale }}>
-        <div
-          className="relative overflow-hidden rounded-[36px] bg-bg-base shadow-2xl"
-          style={{
-            width: PHONE_WIDTH,
-            height: PHONE_HEIGHT,
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
-          }}
-        >
-          {children}
-        </div>
+      <div
+        className="relative bg-bg-base"
+        style={{
+          width: PHONE_WIDTH,
+          height: PHONE_HEIGHT,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        }}
+      >
+        {children}
       </div>
     </div>
   );
