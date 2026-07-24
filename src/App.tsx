@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import PhoneFrame from "./components/PhoneFrame";
 import GreetingScreen from "./components/GreetingScreen";
 import ChatScreen from "./components/ChatScreen";
@@ -29,6 +30,7 @@ export default function App() {
   const [draft, setDraft] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showDone, setShowDone] = useState(false);
+  const chatInputRef = useRef<HTMLInputElement>(null);
 
   function triggerBotReply(text: string) {
     setIsTyping(true);
@@ -39,14 +41,20 @@ export default function App() {
   }
 
   function handlePickMood(mood: string) {
-    setScreen("chat");
-    setMessages([makeMessage("user", mood)]);
+    flushSync(() => {
+      setScreen("chat");
+      setMessages([makeMessage("user", mood)]);
+    });
+    chatInputRef.current?.focus();
     triggerBotReply(MOOD_REPLIES[mood] ?? DEFAULT_REPLY);
   }
 
   function handleTypeInstead() {
-    setScreen("chat");
-    setMessages([]);
+    flushSync(() => {
+      setScreen("chat");
+      setMessages([]);
+    });
+    chatInputRef.current?.focus();
   }
 
   function handleSend() {
@@ -82,6 +90,7 @@ export default function App() {
           onDraftChange={setDraft}
           onSend={handleSend}
           onFinish={handleFinish}
+          inputRef={chatInputRef}
         />
       )}
       {showDone && <DoneOverlay />}

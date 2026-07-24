@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import Mascot from "./Mascot";
 import StatusBar from "./StatusBar";
 import Button from "./Button";
@@ -27,6 +27,7 @@ export default function ChatScreen({
   onDraftChange,
   onSend,
   onFinish,
+  inputRef,
 }: {
   messages: ChatMessage[];
   isTyping: boolean;
@@ -34,19 +35,15 @@ export default function ChatScreen({
   onDraftChange: (value: string) => void;
   onSend: () => void;
   onFinish: () => void;
+  inputRef: RefObject<HTMLInputElement | null>;
 }) {
   const listEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const showSend = isFocused || draft.trim().length > 0;
 
   useEffect(() => {
     listEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, isTyping]);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   return (
     <div className="relative flex size-full flex-col">
