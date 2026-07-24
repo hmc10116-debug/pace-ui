@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Mascot from "./Mascot";
 import StatusBar from "./StatusBar";
 import Button from "./Button";
@@ -36,6 +36,8 @@ export default function ChatScreen({
   onFinish: () => void;
 }) {
   const listEndRef = useRef<HTMLDivElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const showSend = isFocused || draft.trim().length > 0;
 
   useEffect(() => {
     listEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -83,19 +85,26 @@ export default function ChatScreen({
       </div>
 
       <div className="flex flex-col gap-2 p-[10px] pb-4">
-        <div className="flex h-[46px] items-center justify-between rounded-full border border-[rgba(111,90,168,0.25)] bg-white pl-4 pr-2 shadow-sm">
+        <div
+          className={`flex h-[46px] items-center justify-between rounded-full border bg-white pl-4 pr-2 shadow-sm transition-colors ${
+            isFocused ? "border-[1.5px] border-[#6f5aa8]" : "border-[rgba(111,90,168,0.25)]"
+          }`}
+        >
           <input
             value={draft}
             onChange={(e) => onDraftChange(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             onKeyDown={(e) => {
               if (e.key === "Enter") onSend();
             }}
             placeholder="想說什麼都可以…"
             className="flex-1 bg-transparent text-[13px] text-[#3a3450] placeholder:text-[#918cab] focus:outline-none"
           />
-          {draft.trim() ? (
+          {showSend ? (
             <button
               type="button"
+              onMouseDown={(e) => e.preventDefault()}
               onClick={onSend}
               className="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-[#6f5aa8] text-[13px] font-medium text-white"
             >
