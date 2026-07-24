@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import Mascot from "./Mascot";
 import StatusBar from "./StatusBar";
 import Button from "./Button";
 import sleepIcon from "../assets/icon-sleep.svg";
 import micIcon from "../assets/icon-mic.svg";
 import type { ChatMessage } from "../types";
+import { PHONE_HEIGHT, useViewportRect } from "../hooks/useViewportRect";
 
 function TypingDots({ tone = "bot" }: { tone?: "bot" | "user" }) {
   return (
@@ -42,9 +43,24 @@ export default function ChatScreen({
   inputRef: RefObject<HTMLInputElement | null>;
 }) {
   const listEndRef = useRef<HTMLDivElement>(null);
+  const inputRowRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [inputRowHeight, setInputRowHeight] = useState(72);
   const showSend = isFocused || draft.trim().length > 0;
   const isUserTyping = draft.trim().length > 0;
+
+  // visualViewport.height shrinks when the iOS keyboard opens without
+  // resizing the layout viewport, so the design-space canvas (fixed at
+  // PHONE_HEIGHT, scaled by width only) doesn't shrink with it. Track how
+  // far the keyboard eats into the canvas and float the input above it
+  // instead of leaving it pinned at the canvas's own bottom edge.
+  const { viewportRect, scale } = useViewportRect();
+  const visibleBottomDesignY = viewportRect.height / scale;
+  const keyboardInset = Math.max(0, PHONE_HEIGHT - visibleBottomDesignY);
+
+  useLayoutEffect(() => {
+    if (inputRowRef.current) setInputRowHeight(inputRowRef.current.offsetHeight);
+  }, []);
 
   useEffect(() => {
     if (messages.length === 0 && !isTyping && !isUserTyping) return;
@@ -70,7 +86,10 @@ export default function ChatScreen({
         <p className="text-center text-[12px] text-text-secondary">我在聽,想說什麼都可以</p>
       </div>
 
-      <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2">
+      <div
+        className="min-h-0 flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2"
+        style={{ paddingBottom: inputRowHeight + keyboardInset }}
+      >
         {messages.map((m) => (
           <div key={m.id} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
             <p
@@ -97,7 +116,11 @@ export default function ChatScreen({
         <div ref={listEndRef} />
       </div>
 
-      <div className="flex flex-col gap-2 p-[10px] pb-4">
+      <div
+        ref={inputRowRef}
+        className="absolute left-0 right-0 flex flex-col gap-2 p-[10px] pb-4"
+        style={{ bottom: keyboardInset }}
+      >
         <div
           className={`flex h-[46px] items-center justify-between rounded-full border bg-surface-card pl-4 pr-2 shadow-sm transition-colors ${
             isFocused ? "border-[1.5px] border-accent-fill" : "border-[rgba(111,90,168,0.25)]"
