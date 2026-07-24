@@ -4,20 +4,15 @@ import GreetingScreen from "./components/GreetingScreen";
 import ChatScreen from "./components/ChatScreen";
 import DoneOverlay from "./components/DoneOverlay";
 import type { ChatMessage } from "./types";
-
-const MOOD_REPLIES: Record<string, string> = {
-  焦慮: "聽起來心裡有點緊繃,要不要說說是什麼讓你焦慮?",
-  疲憊: "一早就這麼疲憊,辛苦了。是昨晚沒睡好,還是最近事情太多?想說說也可以,不說也沒關係。",
-  平靜: "能有平靜的感覺很好,想多留一會兒在這個狀態嗎?",
-  放鬆: "放鬆真好,想聊聊是什麼讓你放鬆下來的嗎?",
-  喜悅: "聽到你喜悅我也開心,想分享是什麼事嗎?",
-};
-const DEFAULT_REPLY = "我在聽,想說什麼都可以。";
-const FOLLOW_UP_REPLIES = [
-  "嗯,卡住的常常不是大事,想多說一點那個當下嗎?",
-  "謝謝你願意說出來,這樣的感覺很不容易。",
-  "我在這裡陪你,慢慢說沒關係。",
-];
+import {
+  buildEmotionOpeningReply,
+  containsRiskKeywords,
+  NEUTRAL_FOLLOW_UP_REPLIES,
+  NEUTRAL_OPENING_REPLY,
+  SAFETY_RESPONSE,
+  type Emotion,
+} from "./lib/replyContent";
+import { isFirstTimeUser, recordEmotionPick } from "./lib/history";
 
 function makeMessage(sender: ChatMessage["sender"], text: string): ChatMessage {
   return { id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, sender, text };
@@ -40,10 +35,13 @@ export default function App() {
   }
 
   function handlePickMood(mood: string) {
+    const emotion = mood as Emotion;
+    const isFirstTime = isFirstTimeUser();
+    recordEmotionPick(emotion);
     chatInputRef.current?.focus({ preventScroll: true });
     setScreen("chat");
     setMessages([makeMessage("user", mood)]);
-    triggerBotReply(MOOD_REPLIES[mood] ?? DEFAULT_REPLY);
+    triggerBotReply(buildEmotionOpeningReply(emotion, isFirstTime));
   }
 
   function handleTypeInstead() {
@@ -59,10 +57,19 @@ export default function App() {
   function handleSend() {
     const text = draft.trim();
     if (!text) return;
-    const isFirstUserMessage = messages.every((m) => m.sender !== "user");
     setMessages((prev) => [...prev, makeMessage("user", text)]);
     setDraft("");
-    triggerBotReply(isFirstUserMessage ? DEFAULT_REPLY : FOLLOW_UP_REPLIES[messages.length % FOLLOW_UP_REPLIES.length]);
+
+    // 安全邊界優先權最高,覆蓋情緒/時段/歷史等所有其他規則。
+    if (containsRiskKeywords(text)) {
+      triggerBotReply(SAFETY_RESPONSE);
+      return;
+    }
+
+    const isFirstUserMessage = messages.every((m) => m.sender !== "user");
+    triggerBotReply(
+      isFirstUserMessage ? NEUTRAL_OPENING_REPLY : NEUTRAL_FOLLOW_UP_REPLIES[messages.length % NEUTRAL_FOLLOW_UP_REPLIES.length],
+    );
   }
 
   function handleFinish() {

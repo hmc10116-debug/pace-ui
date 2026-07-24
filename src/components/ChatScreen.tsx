@@ -92,7 +92,7 @@ export default function ChatScreen({
           {messages.map((m) => (
             <div key={m.id} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
               <p
-                className={`max-w-[260px] rounded-[16px] px-[14px] py-[12px] text-[13px] leading-[1.45] ${
+                className={`max-w-[260px] whitespace-pre-line rounded-[16px] px-[14px] py-[12px] text-[13px] leading-[1.45] ${
                   m.sender === "user"
                     ? "bg-accent-tonal-bg text-text-primary"
                     : "rounded-tl-[6px] bg-surface-card text-text-primary"
