@@ -47,7 +47,7 @@ export default function GreetingScreen({
                 key={mood}
                 type="button"
                 onClick={() => onPickMood(mood)}
-                className="flex-1 rounded-[21px] border border-[#b7a6de] bg-[#262838] px-[18px] py-[13.5px] text-[14px] font-medium text-[#9a93b8] transition-colors hover:bg-[#31324a] active:scale-[0.97]"
+                className="flex-1 rounded-[21px] border border-[#6f5aa8] bg-white px-[18px] py-[13.5px] text-[14px] font-medium text-[#6f5aa8] transition-colors hover:bg-[#f3f0fa] active:scale-[0.97]"
               >
                 {mood}
               </button>
