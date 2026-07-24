@@ -40,14 +40,14 @@ export default function App() {
   }
 
   function handlePickMood(mood: string) {
-    chatInputRef.current?.focus();
+    chatInputRef.current?.focus({ preventScroll: true });
     setScreen("chat");
     setMessages([makeMessage("user", mood)]);
     triggerBotReply(MOOD_REPLIES[mood] ?? DEFAULT_REPLY);
   }
 
   function handleTypeInstead() {
-    chatInputRef.current?.focus();
+    chatInputRef.current?.focus({ preventScroll: true });
     setScreen("chat");
     setMessages([]);
   }

@@ -47,6 +47,7 @@ export default function ChatScreen({
   const isUserTyping = draft.trim().length > 0;
 
   useEffect(() => {
+    if (messages.length === 0 && !isTyping && !isUserTyping) return;
     listEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, isTyping, isUserTyping]);
 
