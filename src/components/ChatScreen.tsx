@@ -36,12 +36,17 @@ export default function ChatScreen({
   onFinish: () => void;
 }) {
   const listEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const showSend = isFocused || draft.trim().length > 0;
 
   useEffect(() => {
     listEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, isTyping]);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   return (
     <div className="relative flex size-full flex-col">
@@ -91,6 +96,7 @@ export default function ChatScreen({
           }`}
         >
           <input
+            ref={inputRef}
             value={draft}
             onChange={(e) => onDraftChange(e.target.value)}
             onFocus={() => setIsFocused(true)}
