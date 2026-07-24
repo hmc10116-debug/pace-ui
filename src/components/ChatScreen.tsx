@@ -77,12 +77,12 @@ export default function ChatScreen({
       </Button>
 
       <div className="flex flex-col overflow-hidden" style={{ height: contentHeight }}>
-        <div className="flex flex-col items-center gap-3 px-6 pb-2 pt-[100px]">
-          <Mascot />
-          <p className="text-center text-[12px] text-text-secondary">我在聽,想說什麼都可以</p>
-        </div>
-
         <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2">
+          <div className="flex flex-col items-center gap-3 pb-2 pt-[92px]">
+            <Mascot />
+            <p className="text-center text-[12px] text-text-secondary">我在聽,想說什麼都可以</p>
+          </div>
+
           {messages.map((m) => (
             <div key={m.id} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
               <p
