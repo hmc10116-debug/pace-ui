@@ -44,6 +44,7 @@ export default function ChatScreen({
 }) {
   const listEndRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const showSend = isFocused || draft.trim().length > 0;
   const isUserTyping = draft.trim().length > 0;
 
@@ -71,13 +72,18 @@ export default function ChatScreen({
         size="sm"
         icon={<img alt="" src={sleepIcon} className="size-3" />}
         onClick={onFinish}
-        className="absolute left-1/2 top-[53px] z-10 -translate-x-1/2"
+        className={`absolute left-1/2 top-[53px] z-10 -translate-x-1/2 transition-colors ${
+          isScrolled ? "bg-surface-card" : ""
+        }`}
       >
         完成對話進入首頁
       </Button>
 
       <div className="flex flex-col overflow-hidden" style={{ height: contentHeight }}>
-        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2">
+        <div
+          className="min-h-0 flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2"
+          onScroll={(e) => setIsScrolled(e.currentTarget.scrollTop > 0)}
+        >
           <div className="flex flex-col items-center gap-3 pb-2 pt-[92px]">
             <Mascot />
             <p className="text-center text-[12px] text-text-secondary">我在聽,想說什麼都可以</p>
