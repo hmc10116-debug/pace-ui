@@ -6,13 +6,17 @@ import sleepIcon from "../assets/icon-sleep.svg";
 import micIcon from "../assets/icon-mic.svg";
 import type { ChatMessage } from "../types";
 
-function TypingDots() {
+function TypingDots({ tone = "bot" }: { tone?: "bot" | "user" }) {
   return (
-    <div className="flex h-[44px] w-[72px] items-center justify-center gap-[6px] rounded-[16px] bg-surface-card">
+    <div
+      className={`flex h-[44px] w-[72px] items-center justify-center gap-[6px] rounded-[16px] ${
+        tone === "user" ? "bg-accent-tonal-bg" : "bg-surface-card"
+      }`}
+    >
       {[0, 1, 2].map((i) => (
         <span
           key={i}
-          className="size-2 animate-bounce rounded-full bg-[#c9c2e0]"
+          className={`size-2 animate-bounce rounded-full ${tone === "user" ? "bg-accent-fill" : "bg-[#c9c2e0]"}`}
           style={{ animationDelay: `${i * 0.12}s` }}
         />
       ))}
@@ -40,10 +44,11 @@ export default function ChatScreen({
   const listEndRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const showSend = isFocused || draft.trim().length > 0;
+  const isUserTyping = draft.trim().length > 0;
 
   useEffect(() => {
     listEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages, isTyping]);
+  }, [messages, isTyping, isUserTyping]);
 
   return (
     <div className="relative flex size-full flex-col">
@@ -80,7 +85,12 @@ export default function ChatScreen({
         ))}
         {isTyping && (
           <div className="flex justify-start">
-            <TypingDots />
+            <TypingDots tone="bot" />
+          </div>
+        )}
+        {isUserTyping && (
+          <div className="flex justify-end">
+            <TypingDots tone="user" />
           </div>
         )}
         <div ref={listEndRef} />

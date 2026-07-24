@@ -52,6 +52,11 @@ export default function App() {
     setMessages([]);
   }
 
+  // "先逛逛也可以" exits straight to 首頁 without entering the chat flow.
+  // No home screen exists yet (see spec §7 Out of Scope) — this is the
+  // reserved call site to wire up once one is designed.
+  function handleSkip() {}
+
   function handleSend() {
     const text = draft.trim();
     if (!text) return;
@@ -75,7 +80,7 @@ export default function App() {
   return (
     <PhoneFrame>
       <div className={`absolute inset-0 ${screen === "greeting" ? "" : "pointer-events-none opacity-0"}`}>
-        <GreetingScreen onPickMood={handlePickMood} onTypeInstead={handleTypeInstead} onSkip={handleTypeInstead} />
+        <GreetingScreen onPickMood={handlePickMood} onTypeInstead={handleTypeInstead} onSkip={handleSkip} />
       </div>
       <div className={`absolute inset-0 ${screen === "chat" ? "" : "pointer-events-none opacity-0"}`}>
         <ChatScreen
