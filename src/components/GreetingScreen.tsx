@@ -1,6 +1,7 @@
 import Mascot from "./Mascot";
 import StatusBar from "./StatusBar";
 import Button from "./Button";
+import NavBar from "./NavBar";
 
 const MOOD_ROWS = [
   ["焦慮", "疲憊", "平靜"],
@@ -16,13 +17,15 @@ function greetingText() {
 }
 
 export default function GreetingScreen({
+  variant = "onboarding",
   onPickMood,
   onTypeInstead,
   onSkip,
 }: {
+  variant?: "onboarding" | "home";
   onPickMood: (mood: string) => void;
   onTypeInstead: () => void;
-  onSkip: () => void;
+  onSkip?: () => void;
 }) {
   return (
     <div className="relative size-full">
@@ -68,14 +71,18 @@ export default function GreetingScreen({
         說完我幫你收進心事盒,只有你和小雲怪看得到
       </p>
 
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={onSkip}
-        className="absolute left-1/2 top-[694px] -translate-x-1/2"
-      >
-        先逛逛也可以
-      </Button>
+      {variant === "home" ? (
+        <NavBar />
+      ) : (
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={onSkip}
+          className="absolute left-1/2 top-[694px] -translate-x-1/2"
+        >
+          先逛逛也可以
+        </Button>
+      )}
     </div>
   );
 }

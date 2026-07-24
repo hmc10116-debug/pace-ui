@@ -24,7 +24,7 @@ function makeMessage(sender: ChatMessage["sender"], text: string): ChatMessage {
 }
 
 export default function App() {
-  const [screen, setScreen] = useState<"greeting" | "chat">("greeting");
+  const [screen, setScreen] = useState<"greeting" | "home" | "chat">("greeting");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [draft, setDraft] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -52,10 +52,9 @@ export default function App() {
     setMessages([]);
   }
 
-  // "先逛逛也可以" exits straight to 首頁 without entering the chat flow.
-  // No home screen exists yet (see spec §7 Out of Scope) — this is the
-  // reserved call site to wire up once one is designed.
-  function handleSkip() {}
+  function handleSkip() {
+    setScreen("home");
+  }
 
   function handleSend() {
     const text = draft.trim();
@@ -69,7 +68,7 @@ export default function App() {
   function handleFinish() {
     setShowDone(true);
     window.setTimeout(() => {
-      setScreen("greeting");
+      setScreen("home");
       setMessages([]);
       setDraft("");
       setIsTyping(false);
@@ -81,6 +80,9 @@ export default function App() {
     <PhoneFrame>
       <div className={`absolute inset-0 ${screen === "greeting" ? "" : "pointer-events-none opacity-0"}`}>
         <GreetingScreen onPickMood={handlePickMood} onTypeInstead={handleTypeInstead} onSkip={handleSkip} />
+      </div>
+      <div className={`absolute inset-0 ${screen === "home" ? "" : "pointer-events-none opacity-0"}`}>
+        <GreetingScreen variant="home" onPickMood={handlePickMood} onTypeInstead={handleTypeInstead} />
       </div>
       <div className={`absolute inset-0 ${screen === "chat" ? "" : "pointer-events-none opacity-0"}`}>
         <ChatScreen
