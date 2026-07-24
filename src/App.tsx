@@ -28,7 +28,6 @@ export default function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [draft, setDraft] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [showNudge, setShowNudge] = useState(false);
   const [showDone, setShowDone] = useState(false);
 
   function triggerBotReply(text: string) {
@@ -36,7 +35,6 @@ export default function App() {
     window.setTimeout(() => {
       setMessages((prev) => [...prev, makeMessage("bot", text)]);
       setIsTyping(false);
-      setShowNudge(true);
     }, 900);
   }
 
@@ -66,7 +64,6 @@ export default function App() {
       setScreen("greeting");
       setMessages([]);
       setDraft("");
-      setShowNudge(false);
       setIsTyping(false);
       setShowDone(false);
     }, 1600);
@@ -81,7 +78,6 @@ export default function App() {
         <ChatScreen
           messages={messages}
           isTyping={isTyping}
-          showNudge={showNudge}
           draft={draft}
           onDraftChange={setDraft}
           onSend={handleSend}

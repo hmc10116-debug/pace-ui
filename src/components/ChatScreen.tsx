@@ -23,7 +23,6 @@ function TypingDots() {
 export default function ChatScreen({
   messages,
   isTyping,
-  showNudge,
   draft,
   onDraftChange,
   onSend,
@@ -31,7 +30,6 @@ export default function ChatScreen({
 }: {
   messages: ChatMessage[];
   isTyping: boolean;
-  showNudge: boolean;
   draft: string;
   onDraftChange: (value: string) => void;
   onSend: () => void;
@@ -107,12 +105,6 @@ export default function ChatScreen({
             <img alt="" src={micIcon} className="size-[18px] shrink-0" />
           )}
         </div>
-
-        {showNudge && (
-          <Button variant="primary" size="lg" fullWidth onClick={onFinish}>
-            說完了,幫我收著
-          </Button>
-        )}
       </div>
     </div>
   );
