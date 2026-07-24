@@ -83,7 +83,7 @@ export default function ChatScreen({
       </div>
 
       <div className="flex flex-col gap-2 p-[10px] pb-4">
-        <div className="flex h-[46px] items-center justify-between rounded-[14px] border-[1.5px] border-[rgba(111,90,168,0.5)] bg-[#262838] pl-4 pr-2">
+        <div className="flex h-[46px] items-center justify-between rounded-full border border-[rgba(111,90,168,0.25)] bg-white pl-4 pr-2 shadow-sm">
           <input
             value={draft}
             onChange={(e) => onDraftChange(e.target.value)}
@@ -91,7 +91,7 @@ export default function ChatScreen({
               if (e.key === "Enter") onSend();
             }}
             placeholder="想說什麼都可以…"
-            className="flex-1 bg-transparent text-[13px] text-[#ece7de] placeholder:text-[#918cab] focus:outline-none"
+            className="flex-1 bg-transparent text-[13px] text-[#3a3450] placeholder:text-[#918cab] focus:outline-none"
           />
           {draft.trim() ? (
             <button
