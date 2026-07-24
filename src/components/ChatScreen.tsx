@@ -61,7 +61,7 @@ export default function ChatScreen({
 
       <div className="flex flex-col items-center gap-3 px-6 pb-2 pt-[100px]">
         <Mascot />
-        <p className="text-center text-[12px] text-[#9a93b8]">我在聽,想說什麼都可以</p>
+        <p className="text-center text-[12px] text-[#695f82]">我在聽,想說什麼都可以</p>
       </div>
 
       <div className="flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2">
@@ -70,7 +70,7 @@ export default function ChatScreen({
             <p
               className={`max-w-[260px] rounded-[16px] px-[14px] py-[12px] text-[13px] leading-[1.45] ${
                 m.sender === "user"
-                  ? "bg-[rgba(183,166,222,0.14)] text-[#3a3450]"
+                  ? "bg-[rgba(111,90,168,0.12)] text-[#3a3450]"
                   : "rounded-tl-[6px] bg-white text-[#3a3450]"
               }`}
             >
@@ -102,7 +102,7 @@ export default function ChatScreen({
               if (e.key === "Enter") onSend();
             }}
             placeholder="想說什麼都可以…"
-            className="flex-1 bg-transparent text-[13px] text-[#3a3450] placeholder:text-[#918cab] focus:outline-none"
+            className="flex-1 bg-transparent text-[13px] text-[#3a3450] placeholder:text-[#695f82] focus:outline-none"
           />
           {showSend ? (
             <button

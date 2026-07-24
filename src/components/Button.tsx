@@ -9,8 +9,8 @@ const VARIANT_CLASSES: Record<Variant, Record<Size, string>> = {
     sm: "bg-[#6f5aa8] text-[#f6f3fa] rounded-full px-[14px] py-[6px] text-[12px]",
   },
   secondary: {
-    lg: "border border-[#b7a6de] text-[#b7a6de] h-11 rounded-xl px-4 py-3 text-[13px]",
-    sm: "border border-[#b7a6de] text-[#b7a6de] rounded-full px-[14px] py-[6px] text-[12px]",
+    lg: "border border-[#6f5aa8] text-[#5f4c93] h-11 rounded-xl px-4 py-3 text-[13px]",
+    sm: "border border-[#6f5aa8] text-[#5f4c93] rounded-full px-[14px] py-[6px] text-[12px]",
   },
   emphasis: {
     lg: "bg-[#4a3484] text-[#f6f3fa] font-medium shadow-[0px_4px_7px_rgba(74,52,132,0.38)] h-11 rounded-xl px-4 py-3 text-[13px]",
@@ -21,8 +21,8 @@ const VARIANT_CLASSES: Record<Variant, Record<Size, string>> = {
     sm: "bg-[#dc2626] text-[#f6f3fa] font-medium rounded-full px-[14px] py-[6px] text-[12px]",
   },
   text: {
-    lg: "text-[#918cab] underline text-[12px] px-3 py-[13.5px]",
-    sm: "text-[#918cab] underline text-[12px] px-3 py-[13.5px]",
+    lg: "text-[#695f82] underline text-[12px] px-3 py-[13.5px]",
+    sm: "text-[#695f82] underline text-[12px] px-3 py-[13.5px]",
   },
 };
 
