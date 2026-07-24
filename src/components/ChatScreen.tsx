@@ -8,7 +8,7 @@ import type { ChatMessage } from "../types";
 
 function TypingDots() {
   return (
-    <div className="flex h-[44px] w-[72px] items-center justify-center gap-[6px] rounded-[16px] bg-white">
+    <div className="flex h-[44px] w-[72px] items-center justify-center gap-[6px] rounded-[16px] bg-surface-card">
       {[0, 1, 2].map((i) => (
         <span
           key={i}
@@ -61,7 +61,7 @@ export default function ChatScreen({
 
       <div className="flex flex-col items-center gap-3 px-6 pb-2 pt-[100px]">
         <Mascot />
-        <p className="text-center text-[12px] text-[#695f82]">我在聽,想說什麼都可以</p>
+        <p className="text-center text-[12px] text-text-secondary">我在聽,想說什麼都可以</p>
       </div>
 
       <div className="flex-1 space-y-3 overflow-y-auto px-6 pb-2 pt-2">
@@ -70,8 +70,8 @@ export default function ChatScreen({
             <p
               className={`max-w-[260px] rounded-[16px] px-[14px] py-[12px] text-[13px] leading-[1.45] ${
                 m.sender === "user"
-                  ? "bg-[rgba(111,90,168,0.12)] text-[#3a3450]"
-                  : "rounded-tl-[6px] bg-white text-[#3a3450]"
+                  ? "bg-accent-tonal-bg text-text-primary"
+                  : "rounded-tl-[6px] bg-surface-card text-text-primary"
               }`}
             >
               {m.text}
@@ -88,8 +88,8 @@ export default function ChatScreen({
 
       <div className="flex flex-col gap-2 p-[10px] pb-4">
         <div
-          className={`flex h-[46px] items-center justify-between rounded-full border bg-white pl-4 pr-2 shadow-sm transition-colors ${
-            isFocused ? "border-[1.5px] border-[#6f5aa8]" : "border-[rgba(111,90,168,0.25)]"
+          className={`flex h-[46px] items-center justify-between rounded-full border bg-surface-card pl-4 pr-2 shadow-sm transition-colors ${
+            isFocused ? "border-[1.5px] border-accent-fill" : "border-[rgba(111,90,168,0.25)]"
           }`}
         >
           <input
@@ -102,14 +102,14 @@ export default function ChatScreen({
               if (e.key === "Enter") onSend();
             }}
             placeholder="想說什麼都可以…"
-            className="flex-1 bg-transparent text-[13px] text-[#3a3450] placeholder:text-[#695f82] focus:outline-none"
+            className="flex-1 bg-transparent text-[13px] text-text-primary placeholder:text-text-secondary focus:outline-none"
           />
           {showSend ? (
             <button
               type="button"
               onMouseDown={(e) => e.preventDefault()}
               onClick={onSend}
-              className="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-[#6f5aa8] text-[13px] font-medium text-white"
+              className="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-accent-fill text-[13px] font-medium text-text-on-accent"
             >
               ↑
             </button>

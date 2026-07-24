@@ -48,7 +48,7 @@ export default function PhoneFrame({ children }: { children: ReactNode }) {
     >
       <div style={{ width: PHONE_WIDTH * scale, height: PHONE_HEIGHT * scale }}>
         <div
-          className="relative overflow-hidden rounded-[36px] bg-[#f7f2e7] shadow-2xl"
+          className="relative overflow-hidden rounded-[36px] bg-bg-base shadow-2xl"
           style={{
             width: PHONE_WIDTH,
             height: PHONE_HEIGHT,

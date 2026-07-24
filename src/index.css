@@ -1,6 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap");
 @import "tailwindcss";
 
+/* Pace design tokens — from Figma (0vgDthAFoZ4pj1aftvLwhg), light/day theme.
+   The file also has a separate dark "Sleep" token set (color.surface/muted/calm)
+   used by night-mode screens elsewhere; not used by this onboarding flow. */
+@theme {
+  --color-text-primary: #3a3450;
+  --color-text-secondary: #695f82;
+  --color-text-tertiary: #695f82;
+  --color-text-on-accent: #f6f3fa;
+
+  --color-accent-default: #5f4c93;
+  --color-accent-fill: #6f5aa8;
+  --color-accent-bright: #6f5aa8;
+  --color-accent-sleep: #7c86b8;
+  --color-accent-tonal-bg: #6f5aa81f;
+
+  --color-bg-base: #f7f2e7;
+  --color-bg-settings-card: #ffffff;
+
+  --color-surface-card: #ffffff;
+  --color-surface-navbar-glass: #ffffffeb;
+  --color-surface-chip: #3a34500f;
+  --color-surface-chart: #ffffff;
+
+  --color-divider: #3a34501a;
+
+  --color-chart-line: #6f5aa8;
+  --color-chart-band: #6f5aa824;
+  --color-chart-axis: #6d6884;
+  --color-chart-grid: #3a345014;
+
+  --color-feedback-danger: #dc2626;
+  --color-mascot-accent: #cdbef2;
+
+  --color-nav-selected: #6f5aa8;
+  --color-nav-pill: #6f5aa81f;
+  --color-nav-unselected: #695f82;
+}
+
 :root {
   color-scheme: light;
   font-family: "Noto Sans TC", system-ui, sans-serif;

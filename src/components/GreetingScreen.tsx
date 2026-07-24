@@ -27,14 +27,14 @@ export default function GreetingScreen({
   return (
     <div className="relative size-full">
       <StatusBar time="8:04" />
-      <p className="absolute left-6 top-[58px] text-[13px] text-[#695f82]">{greetingText()}</p>
+      <p className="absolute left-6 top-[58px] text-[13px] text-text-secondary">{greetingText()}</p>
 
       <Mascot className="absolute left-[135.5px] top-[171px]" />
 
-      <p className="absolute left-1/2 top-[340px] w-[327px] -translate-x-1/2 text-center text-[18px] font-medium text-[#3a3450]">
+      <p className="absolute left-1/2 top-[340px] w-[327px] -translate-x-1/2 text-center text-[18px] font-medium text-text-primary">
         嗨,我是小雲怪
       </p>
-      <div className="absolute left-1/2 top-[376px] w-[327px] -translate-x-1/2 text-center text-[13px] leading-[1.45] text-[#695f82]">
+      <div className="absolute left-1/2 top-[376px] w-[327px] -translate-x-1/2 text-center text-[13px] leading-[1.45] text-text-secondary">
         <p>有什麼放在心上的,都可以跟我說。</p>
         <p>不知道從哪開始?先挑一個今天的感覺。</p>
       </div>
@@ -47,7 +47,7 @@ export default function GreetingScreen({
                 key={mood}
                 type="button"
                 onClick={() => onPickMood(mood)}
-                className="flex-1 rounded-[21px] border border-[#6f5aa8] bg-white px-[18px] py-[13.5px] text-[14px] font-medium text-[#6f5aa8] transition-colors hover:bg-[#f3f0fa] active:scale-[0.97]"
+                className="flex-1 rounded-[21px] border border-accent-fill bg-surface-card px-[18px] py-[13.5px] text-[14px] font-medium text-accent-fill transition-colors hover:bg-[#f3f0fa] active:scale-[0.97]"
               >
                 {mood}
               </button>
@@ -64,7 +64,7 @@ export default function GreetingScreen({
         或,直接打字跟我說
       </Button>
 
-      <p className="absolute left-1/2 top-[640px] w-[327px] -translate-x-1/2 text-center text-[11px] text-[#695f82]">
+      <p className="absolute left-1/2 top-[640px] w-[327px] -translate-x-1/2 text-center text-[11px] text-text-secondary">
         說完我幫你收進心事盒,只有你和小雲怪看得到
       </p>
 
